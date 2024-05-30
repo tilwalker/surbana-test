@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_db 
+    restart: always
+    environment:
+      - POSTGRES_DB=surbana
+      - POSTGRES_USER=surbana
+      - POSTGRES_PASSWORD=surbana123
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+volumes:
+  postgres_db:
+    driver: local
