@@ -14,9 +14,29 @@
 ## Descriptions
 Create Update Delete Location 
 
-## How to use?
-  First of all, we run `npm install`, `docker compose up -d`, `cp .env.example .env` -> `npm run start:dev`<br />
-  For API documents -> go to <a href="http://localhost:3000/api">Link Swagger</a> after run `npm run start:dev`
+## Installation
+```bash
+# Install dependencies
+$ npm install
+
+# Copy env file
+$ cp .env.example .env
+
+# Run PostgresDB
+$ docker compose up -d
+```
+
+## Running
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
 
 ## For more infomation
 [Nestjs](https://docs.nestjs.com/)
