@@ -4,18 +4,27 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LocationsModule } from './modules/locations/locations.module';
 import { ENTITIES } from './entities';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'surbana',
-      password: 'surbana123',
-      database: 'surbana',
-      entities: [...ENTITIES],
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: () => {
+        return {
+          type: 'postgres',
+          host: process.env.DB_HOST,
+          port: Number(process.env.DB_PORT) || 5432,
+          username: process.env.DB_USER,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_NAME,
+          entities: [...ENTITIES],
+          synchronize: true,
+          autoLoadEntities: true,
+        }
+      }
     }),
     LocationsModule,
   ],
