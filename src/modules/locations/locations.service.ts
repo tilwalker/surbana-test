@@ -169,4 +169,25 @@ export class LocationsService {
       }
     }
   }
+
+  async getById(id: number) {
+    try {
+      const locations = await this.locationRepo.findLocations(id);
+      return {
+        status: HttpStatus.OK,
+        data: {
+          locations: locations
+        },
+        message: 'Remove location success!'
+      }
+
+    } catch(err) {
+      return {
+        status: HttpStatus.BAD_GATEWAY,
+        data: null,
+        message: 'Something when wrong, please try again!',
+        sys_error: err
+      }
+    }
+  }
 }

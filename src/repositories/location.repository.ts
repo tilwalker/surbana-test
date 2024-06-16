@@ -60,4 +60,36 @@ export class LocationRepository {
         })
     }
 
+    async findLocations(id: number) {
+      console.log(id)
+      return this.locationRepo.query(`
+        WITH RECURSIVE locationTree AS (
+          SELECT 
+            id, 
+            parent_id, 
+            deleted_at,
+            building,
+            area,
+            level,
+            name
+          FROM 
+            location
+          WHERE 
+            id = ${id} 
+          UNION ALL
+          SELECT 
+            e.id, 
+            e.parent_id, 
+            e.deleted_at,
+            e.building,
+            e.area,
+            e.level,
+            e.name
+          FROM 
+          location AS e
+          JOIN locationTree AS s ON e.parent_id = s.id
+        ) 
+        SELECT * FROM locationTree;
+      `)
+    }
 }

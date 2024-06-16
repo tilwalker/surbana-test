@@ -13,6 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: () => {
+        console.log(process.env)
         return {
           type: 'postgres',
           host: process.env.DB_HOST,

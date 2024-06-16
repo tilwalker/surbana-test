@@ -43,4 +43,11 @@ export class LocationsController {
   remove(@Param('id') id: string) {
     return this.locationsService.remove(+id);
   }
+
+  @Get('tree/:id')
+  getListLocations(
+    @Param('id') id: string
+  ) {
+    return this.locationsService.getById(+id)
+  }
 }
